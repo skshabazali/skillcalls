@@ -8,7 +8,7 @@ class Help extends Component {
     title: 'Help',
     headerTintColor: 'white',
     headerStyle: {
-      backgroundColor: '#45425d',
+      backgroundColor: '#45425e',
     },
     headerTitleStyle: {
       fontWeight: '200',
