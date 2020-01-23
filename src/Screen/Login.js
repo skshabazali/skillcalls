@@ -179,6 +179,7 @@ class Login extends Component {
                   this.setState({text: text});
                 }}
                 value={this.state.text}
+                theme={{colors: {primary: '#0cb5e8'}}}
               />
 
               <TextInput
@@ -188,8 +189,7 @@ class Login extends Component {
                   backgroundColor: 'white',
                 }}
                 label="password"
-                selectionColor="#6EF31A"
-                secureTextEntry={true}
+                theme={{colors: {primary: '#0cb5e8'}}}
               />
               <TouchableOpacity
                 onPress={() => {

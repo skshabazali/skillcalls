@@ -64,7 +64,7 @@ class Headers extends Component {
                 flex: 0.5,
                 justifyContent: 'center',
                 alignContent: 'space-between',
-                marginLeft: hp('5%'),
+                
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -76,7 +76,7 @@ class Headers extends Component {
                   borderColor: '#ffffff',
                   borderWidth: 2,
                   borderStyle: 'solid',
-                  width: hp('10%'),
+                  width: hp('12%'),
                   alignSelf: 'auto',
                 }}>
                 <Text style={{marginLeft: hp('1%')}}>Bookings</Text>
@@ -99,15 +99,17 @@ class Headers extends Component {
                   borderColor: '#ffffff',
                   borderWidth: 2,
                   borderStyle: 'solid',
-                  width: hp('10%'),
+                  width: hp('12%'),
                   alignSelf: 'auto',
+                  marginLeft:hp("2%")
+                  
                 }}>
-                <Text style={{marginLeft: hp('2%')}}>Help</Text>
+                <Text style={{marginLeft: hp('3%')}}>Help</Text>
               </TouchableOpacity>
             </View>
           </View>
         </Body>
-        <Right>
+        {/* <Right>
           <TouchableOpacity onPress={this.onMenuPress}>
             <Icon
               name="ellipsis-v"
@@ -115,7 +117,7 @@ class Headers extends Component {
               style={{fontSize: 25, color: '#FFFFFF'}}
             />
           </TouchableOpacity>
-        </Right>
+        </Right> */}
       </Header>
     );
   }

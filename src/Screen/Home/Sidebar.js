@@ -23,15 +23,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {colors} from 'react-native-elements';
 
 // create a component
-class Sidebar extends Component<Props> {
+class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      aboutUs: false,
-    };
+    this.state = {};
   }
   shootToast = message => {
     ToastAndroid.showWithGravityAndOffset(
@@ -42,6 +39,11 @@ class Sidebar extends Component<Props> {
       50,
     );
   };
+  onAboutPress() {
+    console.log('clicked');
+
+    this.props.about();
+  }
   render() {
     return (
       <Container>
@@ -190,11 +192,22 @@ class Sidebar extends Component<Props> {
             <ListItem
               noBorder
               onPress={() => {
-                //this.props.navigation.navigate("Fundraise")
-                this.setState({
-                  about: true,
-                });
+                this.props.navigation.navigate('HelpScreen');
               }}>
+              <Left>
+                <Icon
+                  name="settings"
+                  type="MaterialIcons"
+                  style={{color: '#A6A6A6'}}
+                />
+              </Left>
+              <View style={{marginRight: hp('15.5%')}}>
+                <Body>
+                  <Text>Settings</Text>
+                </Body>
+              </View>
+            </ListItem>
+            <ListItem noBorder onPress={this.props.about}>
               <Left>
                 <Icon
                   name="filter-variant"
@@ -211,7 +224,7 @@ class Sidebar extends Component<Props> {
             <ListItem
               noBorder
               onPress={() => {
-                this.props.navigation.navigate("LoginScreen")
+                this.props.navigation.navigate('LoginScreen');
               }}>
               <Left>
                 <Icon name="trash" type="Entypo" style={{color: '#A6A6A6'}} />

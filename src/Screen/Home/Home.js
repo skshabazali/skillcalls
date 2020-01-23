@@ -238,6 +238,9 @@ class HomeScreen extends Component {
   toggleDrawerMenu = () => {
     this.setState({isDrawerOpen: true});
   };
+  togglePopUp = () => {
+    this.setState({aboutUs: true});
+  };
   getLocation = () => {
     Geocoder.init('AIzaSyADAcsvlxCT7vVDKLPhkOnJoflmlCy5jio');
     Geocoder.getFromLatLng(20.33, 85.8)
@@ -284,7 +287,7 @@ class HomeScreen extends Component {
           content={
             <Sidebar
               navigation={this.props.navigation}
-              about={this.state.aboutUs}
+              about={this.togglePopUp}
             />
           }
           tapToClose={true}
@@ -300,7 +303,13 @@ class HomeScreen extends Component {
               navigation={this.props.navigation}
               toggleDrawer={this.toggleDrawerMenu}
             />
+           
             <Content>
+            
+              <Fab style={{position: 'absolute',bottom:"350%",backgroundColor:"white"}} direction="Left" position="bottomRight">
+                <Icon style={{color:"black"}} name="add" />
+              </Fab>
+            
               <View>
                 <PopupDialog
                   // dialogStyle={{ position: "absolute", top: hp("8%") }}
@@ -316,6 +325,7 @@ class HomeScreen extends Component {
                     </Text>
                   </DialogContent>
                 </PopupDialog>
+
                 <MapView
                   ref="map"
                   region={this.state.region}
