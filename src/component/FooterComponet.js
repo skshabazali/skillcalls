@@ -30,7 +30,10 @@ class FooterComponent extends Component<Props> {
     return (
       <View>
         <View>
-          <ScrollView horizontal={true} style={{height: hp('15%')}}>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={{height: hp('15%')}}>
             <FooterTab style={{backgroundColor: '#ffffff', padding: 2}}>
               <View
                 style={{
@@ -41,7 +44,7 @@ class FooterComponent extends Component<Props> {
                   width: hp('10%'),
                   borderStyle: 'solid',
                 }}>
-                <Button vertical transparent onPress={()=>{this.props.navigation.navigate("Carpenters")}}>
+                <Button vertical transparent onPress={this.props.about}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={carpenterImage} />
                   </View>
@@ -199,9 +202,7 @@ class FooterComponent extends Component<Props> {
           </ScrollView>
         </View>
         <View style={{padding: 10}}>
-          <Button
-            onPress={() => this.props.navigation.navigate('Bookings')}
-            style={{backgroundColor: '#000'}}>
+          <Button onPress={this.props.modal} style={{backgroundColor: '#000'}}>
             <Text style={{color: '#ffffff', marginLeft: hp('20%')}}>
               Book Now
             </Text>

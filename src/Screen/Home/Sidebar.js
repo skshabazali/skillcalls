@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, ToastAndroid} from 'react-native';
 import profileImage from '../../Assets/usericon.png';
+
 import {
   List,
   ListItem,
@@ -28,7 +29,9 @@ import {
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isModalVisible: false,
+    };
   }
   shootToast = message => {
     ToastAndroid.showWithGravityAndOffset(
@@ -39,10 +42,10 @@ class Sidebar extends Component {
       50,
     );
   };
-  onAboutPress() {
+  onModalPress() {
     console.log('clicked');
 
-    this.props.about();
+    this.props.Modal();
   }
   render() {
     return (
@@ -207,7 +210,7 @@ class Sidebar extends Component {
                 </Body>
               </View>
             </ListItem>
-            <ListItem noBorder onPress={this.props.about}>
+            <ListItem noBorder onPress={this.onModalPress}>
               <Left>
                 <Icon
                   name="filter-variant"

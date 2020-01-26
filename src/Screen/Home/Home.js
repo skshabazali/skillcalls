@@ -9,13 +9,19 @@ import {
   TouchableOpacity,
   Alert,
   BackHandler,
+  Image,
+  TextInput,
 } from 'react-native';
+import image from '../../Assets/spicon.png';
 import PopupDialog, {
   DialogTitle,
   DialogContent,
   DialogButton,
   DialogFooter,
 } from 'react-native-popup-dialog';
+import table from '../../Assets/table.jpg';
+import chair from '../../Assets/chair.jpg';
+import door from '../../Assets/door.jpg';
 import {DrawerActions, StackActions} from 'react-navigation';
 import HandleBack from '../../component/HandleBack';
 import {
@@ -29,7 +35,9 @@ import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 import Drawer from 'react-native-drawer';
 import Sidebar from '../Home/Sidebar';
+import Modal, {ModalTitle} from 'react-native-modal';
 import FooterComponent from '../../component/FooterComponet';
+
 async function requestLocationPermission() {
   try {
     const granted = await PermissionsAndroid.request(
@@ -86,7 +94,16 @@ class HomeScreen extends Component {
       country: null,
       active: true,
       aboutUs: false,
+      isModalVisible: false,
       clickedPosition: 1,
+      isChairSelected: false,
+      isTableSelected: false,
+      isDoorSelected: false,
+      uploadImageModal: false,
+      onImageSelect: false,
+      documentUploadModal: false,
+      onTextSelect: false,
+      conformBookingModal: false,
       marker: [
         {
           latitude: 21.333,
@@ -238,8 +255,24 @@ class HomeScreen extends Component {
   toggleDrawerMenu = () => {
     this.setState({isDrawerOpen: true});
   };
-  togglePopUp = () => {
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+    console.log('upload', this.state.uploadImageModal);
+  };
+  toggleAbout = () => {
     this.setState({aboutUs: true});
+  };
+  toggleUploadImageModal = () => {
+    this.setState({uploadImageModal: true});
+    this.setState({isModalVisible: !this.state.isModalVisible});
+  };
+  toggleDocumentUploadModal = () => {
+    this.setState({documentUploadModal: true});
+    this.setState({uploadImageModal: !this.state.uploadImageModal});
+  };
+  toggleConformBookingModal = () => {
+    this.setState({conformBookingModal: true});
+    this.setState({documentUploadModal: !this.state.documentUploadModal});
   };
   getLocation = () => {
     Geocoder.init('AIzaSyADAcsvlxCT7vVDKLPhkOnJoflmlCy5jio');
@@ -287,7 +320,7 @@ class HomeScreen extends Component {
           content={
             <Sidebar
               navigation={this.props.navigation}
-              about={this.togglePopUp}
+              Modal={this.toggleModal}
             />
           }
           tapToClose={true}
@@ -303,15 +336,25 @@ class HomeScreen extends Component {
               navigation={this.props.navigation}
               toggleDrawer={this.toggleDrawerMenu}
             />
-           
+
             <Content>
-            
-              <Fab style={{position: 'absolute',bottom:"350%",backgroundColor:"white"}} direction="Left" position="bottomRight">
-                <Icon style={{color:"black"}} name="add" />
+              <Fab
+                style={{
+                  position: 'absolute',
+                  bottom: '350%',
+                  backgroundColor: 'white',
+                }}
+                direction="Left"
+                position="bottomRight">
+                <Icon
+                  style={{color: 'blue'}}
+                  name="my-location"
+                  type="MaterialIcons"
+                />
               </Fab>
-            
+
               <View>
-                <PopupDialog
+                {/* <PopupDialog
                   // dialogStyle={{ position: "absolute", top: hp("8%") }}
                   visible={this.state.aboutUs}
                   dialogTitle={<DialogTitle title="About Us" />}
@@ -324,7 +367,527 @@ class HomeScreen extends Component {
                       Bhubneswar,Odisha,India(IN),PinCode:-751007
                     </Text>
                   </DialogContent>
-                </PopupDialog>
+                </PopupDialog> */}
+
+                {/* // about modal */}
+
+                <Modal
+                  isVisible={this.state.aboutUs}
+                  onBackButtonPress={() => {
+                    this.setState({aboutUs: false});
+                  }}
+                  coverScreen={true}
+                  transparent={true}
+                  onTouchOutside={() => {
+                    this.setState({aboutUs: false});
+                  }}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      widht: wp('15%'),
+                      height: hp('15%'),
+                      borderRadius: 75,
+                    }}>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 25,
+                          paddingLeft: 10,
+                          color: 'black',
+                          fontStyle: 'normal',
+                          alignSelf: 'center',
+                        }}>
+                        About Us
+                      </Text>
+                      <Text
+                        style={{
+                          paddingLeft: 11,
+                          marginTop: hp('2%'),
+
+                          fontSize: 15,
+                        }}>
+                        SKILLCALLS.COM A/127,Sahid Nagar
+                        Bhubneswar,Odisha,India(IN),PinCode:-751007
+                      </Text>
+                    </View>
+                  </View>
+                </Modal>
+                {/*
+                // booking modal */}
+                <Modal
+                  isVisible={
+                    this.state.isModalVisible ||
+                    this.state.uploadImageModal ||
+                    this.state.documentUploadModal ||
+                    this.state.conformBookingModal
+                  }
+                  onBackButtonPress={() => {
+                    this.setState({isModalVisible: false});
+                    this.setState({isChairSelected: false});
+                    this.setState({isTableSelected: false});
+                    this.setState({isDoorSelected: false});
+                    this.setState({uploadImageModal: false});
+                    this.setState({documentUploadModal: false});
+                    this.setState({conformBookingModal: false});
+                  }}>
+                  {this.state.isModalVisible ? (
+                    <View
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        widht: wp('27%'),
+                        height: hp('27%'),
+                        borderRadius: 15,
+                        borderColor: 'white',
+                        borderWidth: 5,
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontSize: 20,
+                            paddingLeft: 10,
+                            color: 'black',
+                            fontStyle: 'normal',
+                            alignSelf: 'center',
+                          }}>
+                          Choose Your Problem Type
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          marginTop: 3,
+                          borderWidth: 2,
+                          borderColor: 'black',
+                          justifyContent: 'space-evenly',
+                          padding: 2,
+                        }}>
+                        <TouchableOpacity
+                          style={{
+                            flex: 0.3,
+                            borderWidth: 1,
+                            borderColor: 'black',
+                            backgroundColor: this.state.isChairSelected
+                              ? 'yellow'
+                              : 'white',
+                          }}
+                          onPress={() => {
+                            this.setState({
+                              isChairSelected: !this.state.isChairSelected,
+                            });
+                          }}>
+                          <View
+                            style={{
+                              paddingRight: hp('1%'),
+                              paddingLeft: hp('1%'),
+                              paddingTop: hp('1%'),
+                            }}>
+                            <Image
+                              style={{width: hp('10%'), height: hp('10%')}}
+                              source={chair}
+                            />
+                          </View>
+                          <Text style={{fontSize: 15, marginLeft: hp('3%')}}>
+                            Chair
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={{
+                            flex: 0.3,
+                            borderWidth: 1,
+                            borderColor: 'black',
+                            backgroundColor: this.state.isTableSelected
+                              ? 'yellow'
+                              : 'white',
+                          }}
+                          onPress={() => {
+                            this.setState({
+                              isTableSelected: !this.state.isTableSelected,
+                            });
+                          }}>
+                          <View
+                            style={{
+                              paddingRight: hp('1%'),
+                              paddingLeft: hp('1%'),
+                              paddingTop: hp('1%'),
+                            }}>
+                            <Image
+                              style={{width: hp('10%'), height: hp('10%')}}
+                              source={table}
+                            />
+                          </View>
+                          <Text style={{fontSize: 15, marginLeft: hp('3%')}}>
+                            Table
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={{
+                            flex: 0.3,
+                            borderWidth: 1,
+                            borderColor: 'black',
+                            backgroundColor: this.state.isDoorSelected
+                              ? 'yellow'
+                              : 'white',
+                          }}
+                          onPress={() => {
+                            this.setState({
+                              isDoorSelected: !this.state.isDoorSelected,
+                            });
+                          }}>
+                          <View
+                            style={{
+                              paddingRight: hp('1%'),
+                              paddingLeft: hp('1%'),
+                              paddingTop: hp('1%'),
+                            }}>
+                            <Image
+                              style={{width: hp('10%'), height: hp('10%')}}
+                              source={door}
+                            />
+                          </View>
+                          <Text style={{fontSize: 15, marginLeft: hp('3%')}}>
+                            Door
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+
+                      <View style={{marginTop: hp('1%')}}>
+                        {this.state.isChairSelected ||
+                        this.state.isDoorSelected ||
+                        this.state.isTableSelected ? (
+                          <Button
+                            style={{backgroundColor: 'black'}}
+                            onPress={this.toggleUploadImageModal}>
+                            <Text
+                              style={{color: 'white', marginLeft: hp('20%')}}>
+                              Next
+                            </Text>
+                          </Button>
+                        ) : (
+                          <Button
+                            style={{backgroundColor: 'black'}}
+                            onPress={this.toggleUploadImageModal}>
+                            <Text
+                              style={{color: 'white', marginLeft: hp('20%')}}>
+                              Skip
+                            </Text>
+                          </Button>
+                        )}
+                      </View>
+                    </View>
+                  ) : null}
+
+                  {/* //photoUploadModal */}
+
+                  {this.state.uploadImageModal ? (
+                    <View
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        widht: wp('35%'),
+                        height: hp('35%'),
+                        borderRadius: 75,
+                      }}>
+                      <View style={{padding: hp('2%')}}>
+                        <Text
+                          style={{
+                            fontSize: 15,
+                            paddingLeft: 10,
+                            color: 'black',
+                            fontStyle: 'normal',
+                            alignSelf: 'center',
+                          }}>
+                          You can upload the photo of your Problem
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        style={{
+                          borderWidth: 1,
+                          borderColor: 'black',
+                          borderRadius: 15,
+                          padding: hp('3%'),
+                          width: hp('35%'),
+                          height: hp('18%'),
+                          marginLeft: hp('5%'),
+                        }}
+                        onPress={() => {
+                          this.setState({onImageSelect: true});
+                        }}>
+                        <Icon
+                          name="camera-enhance"
+                          type="MaterialIcons"
+                          style={{
+                            fontSize: 100,
+                            color: '#E57373',
+                            marginLeft: hp('8%'),
+                            marginBottom: hp('4%'),
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <View
+                        style={{
+                          paddingRight: hp('4%'),
+                          paddingBottom: hp('4%'),
+                          paddingLeft: hp('4%'),
+                          paddingTop: hp('2%'),
+                        }}>
+                        {this.state.onImageSelect ? (
+                          <Button
+                            style={{
+                              borderRadius: 15,
+                              backgroundColor: 'black',
+                            }}
+                            onPress={this.toggleDocumentUploadModal}>
+                            <Text
+                              style={{marginLeft: hp('17%'), color: 'white'}}>
+                              Next
+                            </Text>
+                          </Button>
+                        ) : (
+                          <Button
+                            style={{
+                              borderRadius: 15,
+                              backgroundColor: 'black',
+                            }}
+                            onPress={this.toggleDocumentUploadModal}>
+                            <Text
+                              style={{marginLeft: hp('17%'), color: 'white'}}>
+                              Skip
+                            </Text>
+                          </Button>
+                        )}
+                      </View>
+                    </View>
+                  ) : null}
+
+                  {/* //documentUploadModal */}
+
+                  {this.state.documentUploadModal ? (
+                    <View
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        widht: wp('35%'),
+                        height: hp('65%'),
+                        borderRadius: 15,
+                      }}>
+                      <View style={{padding: hp('2%')}}>
+                        <Text
+                          style={{
+                            fontSize: 15,
+                            paddingLeft: 10,
+                            color: 'black',
+                            fontStyle: 'normal',
+                            alignSelf: 'center',
+                          }}>
+                          You can describe about your Problem
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderWidth: 1,
+                          borderColor: 'black',
+                          borderRadius: 15,
+                          marginLeft: hp('3%'),
+                          marginRight: hp('3%'),
+                        }}>
+                        <View
+                          style={{
+                            padding: hp('2%'),
+                            height: hp('45%'),
+                            widht: hp('35%'),
+                          }}>
+                          <TextInput
+                            style={{
+                              paddingLeft: 10,
+                              borderBottomColor: 'black',
+                              borderBottomWidth: 1,
+                            }}
+                            placeholder="Describe Your Problem"
+                            multiline={true}
+                            onChangeText={() => {
+                              this.setState({
+                                onTextSelect: true,
+                              });
+                            }}
+                            // onBack={() => {
+                            //   this.setState({onTextSelect: false});
+                            // }}
+                          />
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          paddingRight: hp('4%'),
+                          paddingTop: hp('2%'),
+                          paddingLeft: hp('4%'),
+                        }}>
+                        {this.state.onTextSelect ? (
+                          <Button
+                            style={{
+                              borderRadius: 15,
+                              backgroundColor: 'black',
+                            }}
+                            onPress={this.toggleConformBookingModal}>
+                            <Text
+                              style={{marginLeft: hp('17%'), color: 'white'}}>
+                              Next
+                            </Text>
+                          </Button>
+                        ) : (
+                          <Button
+                            style={{
+                              borderRadius: 15,
+                              backgroundColor: 'black',
+                            }}
+                            onPress={this.toggleConformBookingModal}>
+                            <Text
+                              style={{marginLeft: hp('17%'), color: 'white'}}>
+                              Skip
+                            </Text>
+                          </Button>
+                        )}
+                      </View>
+                    </View>
+                  ) : null}
+                  {/* //Confirm Booking */}
+                  {this.state.conformBookingModal ? (
+                    <View
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        widht: wp('35%'),
+                        height: hp('35%'),
+                        borderRadius: 75,
+                      }}>
+                      <View style={{padding: hp('2%')}}>
+                        <Text
+                          style={{
+                            fontSize: 20,
+                            paddingLeft: 10,
+                            color: 'black',
+                            fontStyle: 'normal',
+                            alignSelf: 'center',
+                          }}>
+                          CONFIRM BOOKING
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          alignSelf: 'center',
+                          marginTop: hp('1%'),
+                        }}>
+                        <View
+                          style={{
+                            alignSelf: 'center',
+                            marginTop: hp('1%'),
+                          }}>
+                          <Image
+                            style={{
+                              width: hp('10%'),
+                              height: hp('10%'),
+                              borderWidth: 1,
+                              borderColor: 'grey',
+                              borderRadius: 75,
+                            }}
+                            source={image}
+                          />
+                        </View>
+                        <Text style={{color: 'black', fontWeight: 'bold'}}>
+                          Min Charge : Rs 500/-
+                        </Text>
+                        <Text style={{color: 'black', fontWeight: 'bold'}}>
+                          15mins Away From You
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          paddingRight: hp('2%'),
+                          paddingBottom: hp('2%'),
+                          paddingLeft: hp('2%'),
+                          paddingTop: hp('2%'),
+                          flex: 1,
+                          flexDirection: 'row',
+                        }}>
+                        <View style={{flex: 0.5}}>
+                          <Button
+                            style={{
+                              borderRadius: 15,
+                              backgroundColor: 'white',
+                              borderColor: 'black',
+                              borderWidth: 1,
+                            }}
+                            onPress={this.toggleDocumentUploadModal}>
+                            <Text
+                              style={{marginLeft: hp('3%'), color: 'black'}}>
+                              REQUEST BOOKING
+                            </Text>
+                          </Button>
+                        </View>
+                        <View style={{flex: 0.5}}>
+                          <Button
+                            style={{
+                              borderRadius: 15,
+                              backgroundColor: 'black',
+                            }}
+                            onPress={() => {
+                              this.setState({conformBookingModal: false});
+                            }}>
+                            <Text
+                              style={{marginLeft: hp('7%'), color: 'white'}}>
+                              CANCEL
+                            </Text>
+                          </Button>
+                        </View>
+                      </View>
+                    </View>
+                  ) : null}
+                </Modal>
+
+                {/* <Modal>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      widht: wp('15%'),
+                      height: hp('15%'),
+                      borderRadius: 75,
+                    }}>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 25,
+                          paddingLeft: 10,
+                          color: 'black',
+                          fontStyle: 'normal',
+                          alignSelf: 'center',
+                        }}>
+                        About Us
+                      </Text>
+                      <Text
+                        style={{
+                          paddingLeft: 11,
+                          marginTop: hp('2%'),
+
+                          fontSize: 15,
+                        }}>
+                        SKILLCALLS.COM A/127,Sahid Nagar
+                        Bhubneswar,Odisha,India(IN),PinCode:-751007
+                      </Text>
+                    </View>
+                  </View>
+                  ) :
+                </Modal> */}
+                {/* //modal upload */}
+
+                {/* <Modal
+                  isVisible={this.state.uploadImageModal}
+                  onBackButtonPress={() => {
+                    this.setState({uploadImageModal: false});
+                  }}
+                  coverScreen={true}
+                  transparent={true}
+                  onTouchOutside={() => {
+                    this.setState({uploadImageModal: false});
+                  }}
+
+                </Modal> */}
 
                 <MapView
                   ref="map"
@@ -358,16 +921,15 @@ class HomeScreen extends Component {
                       </Marker>
                     );
                   })}
-                  {/* <View style={{position: 'absolute', top: '50%'}}>
-                  <Fab direction="left" position="bottomRight">
-                    <Icon name="add" />
-                  </Fab>
-                </View> */}
                 </MapView>
               </View>
             </Content>
             <View>
-              <FooterComponent navigation={this.props.navigation} />
+              <FooterComponent
+                navigation={this.props.navigation}
+                modal={this.toggleModal}
+                about={this.toggleAbout}
+              />
             </View>
 
             {/* <View style={{ marginBottom: hp("2%") }}>
