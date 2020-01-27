@@ -11,6 +11,7 @@ import {
   BackHandler,
   Image,
   TextInput,
+  ToastAndroid,
 } from 'react-native';
 import image from '../../Assets/spicon.png';
 import PopupDialog, {
@@ -19,6 +20,7 @@ import PopupDialog, {
   DialogButton,
   DialogFooter,
 } from 'react-native-popup-dialog';
+import ImagePicker from 'react-native-image-crop-picker';
 import table from '../../Assets/table.jpg';
 import chair from '../../Assets/chair.jpg';
 import door from '../../Assets/door.jpg';
@@ -104,6 +106,10 @@ class HomeScreen extends Component {
       documentUploadModal: false,
       onTextSelect: false,
       conformBookingModal: false,
+      imageModalVisible: false,
+      selectedOption: '',
+      image: [],
+      uploadUrl: '',
       marker: [
         {
           latitude: 21.333,
@@ -293,6 +299,98 @@ class HomeScreen extends Component {
       ],
     });
   };
+  shootToast = message => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+      25,
+      50,
+    );
+  };
+  selectPhoto(option, mediaType = 'photo') {
+    this.setState({imageModalVisible: true});
+
+    if (option === 'camera') {
+      ImagePicker.openCamera({
+        cropping: true,
+        width: 500,
+        height: 500,
+        mediaType,
+        compressImageMaxWidth: 640,
+        compressImageMaxHeight: 480,
+        freeStyleCropEnabled: true,
+        includeExif: true,
+      })
+        .then(image => {
+          // this.setState({showSpinner: true});
+          this.setState({
+            imageModalVisible: false,
+            image: {
+              uri: image.path,
+              width: image.width,
+              height: image.height,
+              mime: image.mime,
+            },
+          });
+          this.setState({
+            uploadUrl: this.state.image.uri,
+          });
+          console.log('image', this.state.image);
+          // uploadImage(image.path).then(url => {
+          //   console.log('uploadUrl', url);
+          //   this.setState({
+          //     uploadUrl: url,
+          //     showSpinner: false,
+          //   });
+          // });
+          // this.storeUploadedData(item, image);
+        })
+        .catch(e => {
+          console.log(e), this.setState({imageModalVisible: false});
+        });
+
+      console.log('camera');
+    }
+    if (option === 'gallery') {
+      ImagePicker.openPicker({
+        cropping: true,
+        width: 300,
+        height: 400,
+        includeExif: true,
+        freeStyleCropEnabled: true,
+        avoidEmptySpaceAroundImage: true,
+        mediaType,
+      })
+        .then(image => {
+          this.setState({imageModalVisible: false});
+          this.setState({showSpinner: true});
+          this.setState({
+            imageModalVisible: false,
+            image: {
+              uri: image.path,
+              width: image.width,
+              height: image.height,
+              mime: image.mime,
+            },
+          });
+          this.setState({
+            uploadUrl: this.state.image.uri,
+          });
+          console.log('image', this.state.image);
+          // uploadImage(image.path).then(url => {
+          //   console.log('uploadUrl', url);
+          //   this.setState({
+          //     uploadUrl: url,
+          //     showSpinner: false,
+          //   });
+          // });
+        })
+        .catch(e => console.log(e));
+      console.log('gallery');
+    }
+  }
+
   // onMapPress(e) {
   //   alert('coordinates:' + JSON.stringify(e.nativeEvent.coordinate));
   //   this.setState({
@@ -320,7 +418,7 @@ class HomeScreen extends Component {
           content={
             <Sidebar
               navigation={this.props.navigation}
-              Modal={this.toggleModal}
+              about={this.toggleAbout}
             />
           }
           tapToClose={true}
@@ -585,7 +683,7 @@ class HomeScreen extends Component {
                         backgroundColor: '#FFFFFF',
                         widht: wp('35%'),
                         height: hp('35%'),
-                        borderRadius: 75,
+                        borderRadius: 15,
                       }}>
                       <View style={{padding: hp('2%')}}>
                         <Text
@@ -610,9 +708,91 @@ class HomeScreen extends Component {
                           marginLeft: hp('5%'),
                         }}
                         onPress={() => {
-                          this.setState({onImageSelect: true});
+                          this.setState({
+                            onImageSelect: true,
+                            imageModalVisible: true,
+                          });
                         }}>
-                        <Icon
+                        <Modal
+                          isVisible={this.state.imageModalVisible}
+                          onBackButtonPress={() => {
+                            this.setState({imageModalVisible: false});
+                          }}>
+                          <View
+                            style={{
+                              backgroundColor: '#FFFFFF',
+                              widht: wp('15%'),
+                              height: hp('20%'),
+                              borderRadius: 2,
+                            }}>
+                            <View>
+                              <Text
+                                style={{
+                                  fontSize: 25,
+                                  paddingLeft: 10,
+                                  fontFamily: 'railway',
+                                }}>
+                                Select a Photo
+                              </Text>
+
+                              <TouchableOpacity
+                                style={{marginTop: 20}}
+                                onPress={() => {
+                                  this.setState({
+                                    selectedOption: 'Camera',
+                                    imageModalVisible: false,
+                                  });
+                                  this.selectPhoto('camera');
+                                }}>
+                                <Text
+                                  style={{
+                                    paddingLeft: 11,
+                                    fontFamily: 'railway',
+                                    fontSize: 15,
+                                  }}>
+                                  Take a Photo...
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
+                            <View>
+                              <TouchableOpacity
+                                style={{marginTop: 20}}
+                                onPress={() => {
+                                  this.setState({
+                                    selectedOption: 'Gallery',
+                                    imageModalVisible: false,
+                                  });
+                                  this.selectPhoto('gallery');
+                                }}>
+                                <Text
+                                  style={{
+                                    paddingLeft: 11,
+                                    fontFamily: 'railway',
+                                    fontSize: 15,
+                                  }}>
+                                  Choose from Library...
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                        </Modal>
+                        <View style={[styles.avatarContainerIcon]}>
+                          {!this.state.uploadUrl ? (
+                            <Icon
+                              name="camera-enhance"
+                              type="MaterialIcons"
+                              style={{fontSize: 100, color: '#E57373'}}
+                            />
+                          ) : (
+                            <Image
+                              style={styles.avatar}
+                              source={{
+                                uri: this.state.image.uri,
+                              }}
+                            />
+                          )}
+                        </View>
+                        {/* <Icon
                           name="camera-enhance"
                           type="MaterialIcons"
                           style={{
@@ -620,8 +800,7 @@ class HomeScreen extends Component {
                             color: '#E57373',
                             marginLeft: hp('8%'),
                             marginBottom: hp('4%'),
-                          }}
-                        />
+                          }} */}
                       </TouchableOpacity>
                       <View
                         style={{
@@ -755,7 +934,7 @@ class HomeScreen extends Component {
                         backgroundColor: '#FFFFFF',
                         widht: wp('35%'),
                         height: hp('35%'),
-                        borderRadius: 75,
+                        borderRadius: 15,
                       }}>
                       <View style={{padding: hp('2%')}}>
                         <Text
@@ -814,7 +993,9 @@ class HomeScreen extends Component {
                               borderColor: 'black',
                               borderWidth: 1,
                             }}
-                            onPress={this.toggleDocumentUploadModal}>
+                            onPress={() => {
+                              this.shootToast('Booking in process');
+                            }}>
                             <Text
                               style={{marginLeft: hp('3%'), color: 'black'}}>
                               REQUEST BOOKING
@@ -991,6 +1172,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: wp('90%'),
     backgroundColor: '#000000',
+  },
+  avatar: {
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#e6e6e6',
+    width: hp('33%'),
+    height: hp('14%'),
+  },
+  avatarContainerIcon: {
+    //justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:hp("2%")
   },
 });
 

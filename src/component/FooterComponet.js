@@ -25,6 +25,14 @@ type Props = {};
 class FooterComponent extends Component<Props> {
   constructor(props) {
     super(props);
+    this.state = {
+      carpenter: true,
+      plumber: false,
+      electrician: false,
+      antipest: false,
+      mechanic: false,
+      cleaner: false,
+    };
   }
   render() {
     return (
@@ -40,11 +48,26 @@ class FooterComponent extends Component<Props> {
                   borderRadius: 5,
                   borderWidth: 3,
                   borderColor: '#000000',
-                  backgroundColor: 'yellow',
+                  backgroundColor: this.state.carpenter ? 'yellow' : 'white',
                   width: hp('10%'),
                   borderStyle: 'solid',
                 }}>
-                <Button vertical transparent onPress={this.props.about}>
+                <Button
+                  vertical
+                  transparent
+                  onPress={
+                    (this.props.about,
+                    () => {
+                      this.setState({
+                        carpenter: !this.state.carpenter,
+                        plumber: false,
+                        electrician: false,
+                        antipest: false,
+                        mechanic: false,
+                        cleaner: false,
+                      });
+                    })
+                  }>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={carpenterImage} />
                   </View>
@@ -58,12 +81,24 @@ class FooterComponent extends Component<Props> {
                   borderRadius: 5,
                   borderWidth: 3,
                   borderColor: '#000000',
-                  backgroundColor: 'white',
+                  backgroundColor: this.state.plumber ? 'yellow' : 'white',
                   width: hp('10%'),
                   marginLeft: hp('1%'),
                   borderStyle: 'solid',
                 }}>
-                <Button vertical transparent>
+                <Button
+                  vertical
+                  transparent
+                  onPress={() => {
+                    this.setState({
+                      plumber: !this.state.plumber,
+                      carpenter: false,
+                      electrician: false,
+                      antipest: false,
+                      mechanic: false,
+                      cleaner: false,
+                    });
+                  }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={plumberImage} />
                   </View>
@@ -77,16 +112,28 @@ class FooterComponent extends Component<Props> {
                   borderRadius: 5,
                   borderWidth: 3,
                   borderColor: '#000000',
-                  backgroundColor: 'white',
+                  backgroundColor: this.state.electrician ? 'yellow' : 'white',
                   width: hp('10%'),
                   marginLeft: hp('1%'),
                 }}>
-                <Button vertical transparent>
+                <Button
+                  vertical
+                  transparent
+                  onPress={() => {
+                    this.setState({
+                      electrician: !this.state.electrician,
+                      plumber: false,
+                      carpenter: false,
+                      antipest: false,
+                      mechanic: false,
+                      cleaner: false,
+                    });
+                  }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={electricianImage} />
                   </View>
                   <View>
-                    <Text>Electician</Text>
+                    <Text>Electrician</Text>
                   </View>
                 </Button>
               </View>
@@ -95,11 +142,23 @@ class FooterComponent extends Component<Props> {
                   borderRadius: 5,
                   borderWidth: 3,
                   borderColor: '#000000',
-                  backgroundColor: 'white',
+                  backgroundColor: this.state.antipest ? 'yellow' : 'white',
                   width: hp('10%'),
                   marginLeft: hp('1%'),
                 }}>
-                <Button vertical transparent>
+                <Button
+                  vertical
+                  transparent
+                  onPress={() => {
+                    this.setState({
+                      antipest: !this.state.antipest,
+                      plumber: false,
+                      electrician: false,
+                      carpenter: false,
+                      mechanic: false,
+                      cleaner: false,
+                    });
+                  }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={antipestImage} />
                   </View>
@@ -113,11 +172,23 @@ class FooterComponent extends Component<Props> {
                   borderRadius: 5,
                   borderWidth: 3,
                   borderColor: '#000000',
-                  backgroundColor: 'white',
+                  backgroundColor: this.state.mechanic ? 'yellow' : 'white',
                   width: hp('10%'),
                   marginLeft: hp('1%'),
                 }}>
-                <Button vertical transparent>
+                <Button
+                  vertical
+                  transparent
+                  onPress={() => {
+                    this.setState({
+                      mechanic: !this.state.mechanic,
+                      plumber: false,
+                      electrician: false,
+                      antipest: false,
+                      carpenter: false,
+                      cleaner: false,
+                    });
+                  }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={mechanicImage} />
                   </View>
@@ -131,11 +202,23 @@ class FooterComponent extends Component<Props> {
                   borderRadius: 5,
                   borderWidth: 3,
                   borderColor: '#000000',
-                  backgroundColor: 'white',
+                  backgroundColor: this.state.cleaner ? 'yellow' : 'white',
                   width: hp('10%'),
                   marginLeft: hp('1%'),
                 }}>
-                <Button vertical transparent>
+                <Button
+                  vertical
+                  transparent
+                  onPress={() => {
+                    this.setState({
+                      cleaner: !this.state.cleaner,
+                      plumber: false,
+                      electrician: false,
+                      antipest: false,
+                      mechanic: false,
+                      carpenter: false,
+                    });
+                  }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={cleanerImage} />
                   </View>

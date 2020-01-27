@@ -210,7 +210,7 @@ class Sidebar extends Component {
                 </Body>
               </View>
             </ListItem>
-            <ListItem noBorder onPress={this.onModalPress}>
+            <ListItem noBorder onPress={this.props.about}>
               <Left>
                 <Icon
                   name="filter-variant"
