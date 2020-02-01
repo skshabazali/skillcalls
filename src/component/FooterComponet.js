@@ -7,6 +7,7 @@ import {
   Image,
   ImageBackground,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import {Footer, FooterTab, Button, Icon, Thumbnail} from 'native-base';
 import carpenterImage from '../Assets/carpenterbw.png';
@@ -26,7 +27,7 @@ class FooterComponent extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      carpenter: true,
+      carpenter: false,
       plumber: false,
       electrician: false,
       antipest: false,
@@ -34,6 +35,15 @@ class FooterComponent extends Component<Props> {
       cleaner: false,
     };
   }
+  shootToast = message => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+      25,
+      50,
+    );
+  };
   render() {
     return (
       <View>
@@ -55,19 +65,14 @@ class FooterComponent extends Component<Props> {
                 <Button
                   vertical
                   transparent
-                  onPress={
-                    (this.props.about,
-                    () => {
-                      this.setState({
-                        carpenter: !this.state.carpenter,
-                        plumber: false,
-                        electrician: false,
-                        antipest: false,
-                        mechanic: false,
-                        cleaner: false,
-                      });
-                    })
-                  }>
+                  onPress={() => {
+                    this.props.onSelectServiceProvider("Carpenter")
+                    // {
+                    //   this.state.carpenter
+                    //     ? this.props.carp()
+                    //     : this.props.navigation.navigate('Carpenters');
+                    // }
+                  }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={carpenterImage} />
                   </View>
@@ -91,13 +96,16 @@ class FooterComponent extends Component<Props> {
                   transparent
                   onPress={() => {
                     this.setState({
-                      plumber: !this.state.plumber,
+                      plumber: true,
                       carpenter: false,
                       electrician: false,
                       antipest: false,
                       mechanic: false,
                       cleaner: false,
                     });
+                    if (this.state.plumber) {
+                      this.props.plum();
+                    }
                   }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={plumberImage} />
@@ -121,13 +129,16 @@ class FooterComponent extends Component<Props> {
                   transparent
                   onPress={() => {
                     this.setState({
-                      electrician: !this.state.electrician,
+                      electrician: true,
                       plumber: false,
                       carpenter: false,
                       antipest: false,
                       mechanic: false,
                       cleaner: false,
                     });
+                    if (this.state.electrician) {
+                      this.props.elect();
+                    }
                   }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={electricianImage} />
@@ -151,13 +162,16 @@ class FooterComponent extends Component<Props> {
                   transparent
                   onPress={() => {
                     this.setState({
-                      antipest: !this.state.antipest,
+                      antipest: true,
                       plumber: false,
                       electrician: false,
                       carpenter: false,
                       mechanic: false,
                       cleaner: false,
                     });
+                    if (this.state.antipest) {
+                      this.props.anti();
+                    }
                   }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={antipestImage} />
@@ -181,13 +195,16 @@ class FooterComponent extends Component<Props> {
                   transparent
                   onPress={() => {
                     this.setState({
-                      mechanic: !this.state.mechanic,
+                      mechanic: true,
                       plumber: false,
                       electrician: false,
                       antipest: false,
                       carpenter: false,
                       cleaner: false,
                     });
+                    if (this.state.mechanic) {
+                      this.props.mech();
+                    }
                   }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={mechanicImage} />
@@ -211,13 +228,16 @@ class FooterComponent extends Component<Props> {
                   transparent
                   onPress={() => {
                     this.setState({
-                      cleaner: !this.state.cleaner,
+                      cleaner: true,
                       plumber: false,
                       electrician: false,
                       antipest: false,
                       mechanic: false,
                       carpenter: false,
                     });
+                    if (this.state.cleaner) {
+                      this.props.clean();
+                    }
                   }}>
                   <View style={{marginRight: hp('2.5%')}}>
                     <Image style={styles.avatar} source={cleanerImage} />
@@ -285,7 +305,20 @@ class FooterComponent extends Component<Props> {
           </ScrollView>
         </View>
         <View style={{padding: 10}}>
-          <Button onPress={this.props.modal} style={{backgroundColor: '#000'}}>
+          <Button
+            onPress={() => {
+              {
+                this.state.carpenter ||
+                this.state.plumber ||
+                this.state.electrician ||
+                this.state.antipest ||
+                this.state.mechanic ||
+                this.state.cleaner
+                  ? this.props.modal()
+                  : this.shootToast('Select any one to book');
+              }
+            }}
+            style={{backgroundColor: '#000'}}>
             <Text style={{color: '#ffffff', marginLeft: hp('20%')}}>
               Book Now
             </Text>

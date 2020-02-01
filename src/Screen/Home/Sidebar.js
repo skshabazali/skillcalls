@@ -101,7 +101,7 @@ class Sidebar extends Component {
             <ListItem
               noBorder
               onPress={() => {
-                this.props.navigation.navigate('RegisterService');
+                this.props.navigation.navigate('RegisterService',{navigation:this.props.navigation});
               }}>
               <Left>
                 <Icon

@@ -1,58 +1,73 @@
-//import liraries
+
 import React, {Component} from 'react';
-import {Text, View, Button, Modal, StyleSheet} from 'react-native';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
-
+import {Text, View} from 'react-native';
 export default class Help extends Component {
-  state = {
-    modalVisible: false,
+  static navigationOptions = {
+    title: 'HELP',
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#45425d',
+    },
+    headerTitleStyle: {
+      fontWeight: '200',
+
+      color: '#ffffff',
+
+      fontFamily: 'Railway',
+
+      fontSize: 18,
+    },
   };
-
-  openModal() {
-    this.setState({modalVisible: true});
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
-
-  closeModal() {
-    this.setState({modalVisible: false});
-  }
-
   render() {
     return (
-      <View style={styles.container}>
-        <Modal
-          visible={this.state.modalVisible}
-          animationType={'slide'}
-          onRequestClose={() => this.closeModal()}
-          style={{
-            height: heightPercentageToDP('5%'),
-            width: heightPercentageToDP('5%'),
-          }}>
-          <View style={styles.modalContainer}>
-            <View style={styles.innerContainer}>
-              <Text>This is content inside of modal component</Text>
-              <Button onPress={() => this.closeModal()} title="Close modal" />
-            </View>
-          </View>
-        </Modal>
-        <Button onPress={() => this.openModal()} title="Open modal" />
+      <View>
+        <Text>Help</Text>
+        {/* <AirbnbRating />
+
+        <AirbnbRating
+          count={11}
+          reviews={[
+            'Terrible',
+            'Bad',
+            'Meh',
+            'OK',
+            'Good',
+            'Hmm...',
+            'Very Good',
+            'Wow',
+            'Amazing',
+            'Unbelievable',
+            'Jesus',
+          ]}
+          defaultRating={11}
+          size={20}
+        /> */}
+
+    
+
+        {/* <Rating
+          type="heart"
+          ratingCount={3}
+          imageSize={60}
+          showRating
+          onFinishRating={this.ratingCompleted}
+        /> */}
+
+        {/* <Rating
+          type="custom"
+          ratingImage={WATER_IMAGE}
+          ratingColor="#3498db"
+          ratingBackgroundColor="#c8c7c8"
+          ratingCount={10}
+          imageSize={30}
+          onFinishRating={this.ratingCompleted}
+          style={{paddingVertical: 10}}
+        /> */}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
-  },
-  innerContainer: {
-    alignItems: 'center',
-  },
-});
-
-//make this component available to the app

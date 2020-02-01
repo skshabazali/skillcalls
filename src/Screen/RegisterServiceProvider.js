@@ -57,8 +57,7 @@ const validationSchema = Yup.object().shape({
   phone: Yup.number()
     .min(10, 'Please enter 10 digit number')
     .required(),
-  address: Yup.string().required(),
-  charges: Yup.string().required(),
+
   service: Yup.string().required(),
 });
 
@@ -193,56 +192,28 @@ class RegisterServiceProvider extends Component {
               source={image}
             />
           </View>
-          <View style={{position: 'absolute', top: '19%', left: '5%'}}>
-            <Icon
-              name="user"
-              type="FontAwesome5"
-              style={{color: '#A6A6A6', fontSize: 25}}
-            />
-          </View>
-          <View style={{position: 'absolute', top: '29%', left: '5%'}}>
+          <View style={{position: 'absolute', top: '30%', left: '5%'}}>
             <Icon
               name="email"
               type="MaterialIcons"
               style={{color: '#A6A6A6', fontSize: 25}}
             />
           </View>
-          <View style={{position: 'absolute', top: '47%', left: '5%'}}>
+          <View style={{position: 'absolute', top: '45%', left: '5%'}}>
             <Icon
               name="lock-outline"
               type="MaterialIcons"
               style={{color: '#A6A6A6', fontSize: 25}}
             />
           </View>
-          <View style={{position: 'absolute', top: '57%', left: '5%'}}>
+          <View style={{position: 'absolute', top: '59%', left: '5%'}}>
             <Icon
               name="lock-outline"
               type="MaterialIcons"
               style={{color: '#A6A6A6', fontSize: 25}}
             />
           </View>
-          <View style={{position: 'absolute', top: '66%', left: '6%'}}>
-            <Icon
-              name="monetization-on"
-              type="MaterialIcons"
-              style={{color: '#A6A6A6', fontSize: 25}}
-            />
-          </View>
-          <View style={{position: 'absolute', top: '75%', left: '6%'}}>
-            <Icon
-              name="map-marker"
-              type="FontAwesome"
-              style={{color: '#A6A6A6', fontSize: 25}}
-            />
-          </View>
-          <View style={{position: 'absolute', top: '38%', left: '5%'}}>
-            <Icon
-              name="contact-phone"
-              type="MaterialIcons"
-              style={{color: '#A6A6A6', fontSize: 25}}
-            />
-          </View>
-          <View style={{position: 'absolute', top: '84%', left: '5%'}}>
+          <View style={{position: 'absolute', top: '75%', left: '5%'}}>
             <Icon
               name="tools"
               type="Octicons"
@@ -251,20 +222,14 @@ class RegisterServiceProvider extends Component {
           </View>
 
           <Formik
-            onSubmit={this.writeUserData}
+            onSubmit={values => alert(JSON.stringify(values, null, 2))}
             validationSchema={validationSchema}
             render={props => {
               return (
                 <Form>
                   <View style={{padding: 20, marginLeft: hp('4%')}}>
                     <ScrollView>
-                      <MyInput label="Name" name="name" type="name" />
                       <MyInput label="Email" name="email" type="emailid" />
-                      <MyInput
-                        label="ContactNumber"
-                        name="phone"
-                        type="number"
-                      />
                       <MyInput
                         label="Password"
                         name="password"
@@ -275,12 +240,6 @@ class RegisterServiceProvider extends Component {
                         name="conpassword"
                         type="password"
                       />
-                      <MyInput
-                        label="Minimun Charges"
-                        name="charges"
-                        type="charges"
-                      />
-                      <MyInput label="Address" name="address" type="address" />
                       <MySelect
                         label="Service Type"
                         name="service"
@@ -292,7 +251,14 @@ class RegisterServiceProvider extends Component {
                       <View style={styles.buttonStyle}>
                         <TouchableOpacity
                           style={styles.buttonStyle}
-                          onPress={props.handleSubmit}>
+                          onPress={
+                            (props.handleSubmit,
+                            () => {
+                              this.props.navigation.navigate(
+                                'AdditionalRegisterServiceProviderPage',{navigation:this.props.navigation}
+                              );
+                            })
+                          }>
                           <Text
                             style={{
                               fontSize: 20,

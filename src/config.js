@@ -7,6 +7,8 @@ import Setting from './Screen/Setting';
 import SplashScreen from './Screen/SplashScreen';
 import RegisterServiceProvider from './Screen/RegisterServiceProvider';
 import LoginServiceProvider from './Screen/LoginAsServiceProvider';
+import AdditionalRegisterServiceProviderPage from './Screen/AdditionalRegisterServiceProviderPage';
+import ServiceProviderHomePage from './Screen/Home/ServiceProviderHomePage';
 import Help from './Screen/Help';
 
 const Config = {
@@ -29,11 +31,20 @@ const Config = {
         header: null,
       },
     },
+    ServiceProviderHomePage: {
+      screen: ServiceProviderHomePage,
+      navigationOptions: {
+        header: null,
+      },
+    },
     Bookings: {
       screen: Booking,
     },
     HelpScreen: {
       screen: Help,
+    },
+    AdditionalRegisterServiceProviderPage: {
+      screen: AdditionalRegisterServiceProviderPage,
     },
     Carpenters: {
       screen: carpenter,

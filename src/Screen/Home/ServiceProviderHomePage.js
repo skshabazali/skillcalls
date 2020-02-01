@@ -1,4 +1,3 @@
-//import liraries
 import React, {Component} from 'react';
 import {
   View,
@@ -33,45 +32,53 @@ import {
 } from 'react-native-responsive-screen';
 import SlideShow from '../../component/SlideShow';
 
-// create a component
-class Booking extends Component {
-  static navigationOptions = {
-    title: 'Bookings',
-    headerTintColor: 'white',
-    headerStyle: {
-      backgroundColor: '#45425d',
-    },
-    headerTitleStyle: {
-      fontWeight: '200',
-
-      color: '#ffffff',
-
-      fontFamily: 'Railway',
-
-      fontSize: 18,
-    },
-  };
-  constructor(props) {
+export default class ServiceProviderHomePage extends Component {
+  constructor(props){
     super(props);
-    this.state = {
-      // visible: false,
-      // imageModalVisible: false,
-      // selectedOption: '',
-      // image: [],
-      // uploadUrl: '',
-    };
   }
-
   render() {
     return (
-     <View style={styles.container}>
-       <Text>Booking</Text>
-     </View>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{height:hp("25%")}}>
+        <SlideShow />
+      </View>
+      <Tabs>
+        <Tab
+          heading={
+            <TabHeading style={{backgroundColor: '#45425d'}}>
+              <Text style={{color: '#fafafa'}}>FACILITES</Text>
+            </TabHeading>
+          }>
+          <View>
+            <Tab1 />
+          </View>
+        </Tab>
+
+        <Tab
+          heading={
+            <TabHeading style={{backgroundColor: '#45425d'}}>
+              <Text style={{color: '#fafafa'}}>BOOKINGS</Text>
+            </TabHeading>
+          }>
+          <View>
+            <Tab2 />
+          </View>
+        </Tab>
+        <Tab
+          heading={
+            <TabHeading style={{backgroundColor: '#45425d'}}>
+              <Text style={{color: '#fafafa'}}>PROFILE</Text>
+            </TabHeading>
+          }>
+          <View>
+            <Tab3 navigation={this.props.navigation.state.params.navigation} />
+          </View>
+        </Tab>
+      </Tabs>
+    </View>
     );
   }
 }
-
-// define your styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -92,6 +99,3 @@ const styles = StyleSheet.create({
     marginBottom: hp('2%'),
   },
 });
-
-//make this component available to the app
-export default Booking;

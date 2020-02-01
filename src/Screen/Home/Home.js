@@ -39,6 +39,7 @@ import Drawer from 'react-native-drawer';
 import Sidebar from '../Home/Sidebar';
 import Modal, {ModalTitle} from 'react-native-modal';
 import FooterComponent from '../../component/FooterComponet';
+import ModalAboutUs from '../../component/ModalAboutUs';
 
 async function requestLocationPermission() {
   try {
@@ -96,6 +97,13 @@ class HomeScreen extends Component {
       country: null,
       active: true,
       aboutUs: false,
+      isCarpenter: false,
+      isPlumber: false,
+      isElectrician: false,
+      isAntiPest: false,
+      isMechanics: false,
+      isCleaner: false,
+
       isModalVisible: false,
       clickedPosition: 1,
       isChairSelected: false,
@@ -110,14 +118,71 @@ class HomeScreen extends Component {
       selectedOption: '',
       image: [],
       uploadUrl: '',
-      marker: [
+      onSelectServiceProvider: '',
+      markers: [
         {
-          latitude: 21.333,
-          longitude: 86.8,
+          title: 'carpenter',
+          coordinates: {
+            latitude: 20.334671,
+            longitude: 85.802578,
+          },
         },
-        {latitude: 22.33, longitude: 83.4577},
-        {latitude: 20.33, longitude: 84.4577},
-        {latitude: 19.33, longitude: 85.6577},
+        {
+          title: 'carpenter',
+          coordinates: {
+            latitude: 20.334672,
+            longitude: 85.822474,
+          },
+        },
+        {
+          title: 'carpenter',
+          coordinates: {
+            latitude: 20.334673,
+            longitude: 85.8271,
+          },
+        },
+        {
+          title: 'carpenter',
+          coordinates: {
+            latitude: 20.334671,
+            longitude: 85.802774,
+          },
+        },
+        {
+          title: 'Plumber',
+          coordinates: {
+            latitude: 20.339771,
+            longitude: 85.855449,
+          },
+        },
+        {
+          title: 'Electrician',
+          coordinates: {
+            latitude: 20.339771,
+            longitude: 85.655449,
+          },
+        },
+        {
+          title: 'Mechanics',
+          coordinates: {
+            latitude: 20.339771,
+            longitude: 85.155449,
+          },
+        },
+        {
+          title: 'hello',
+          coordinates: {
+            latitude: 23.149771,
+            longitude: 85.155449,
+          },
+        },
+        {
+          title: 'hello',
+          coordinates: {
+            latitude: 23.149771,
+            longitude: 84.655449,
+          },
+        },
       ],
       region: {
         latitude: LATITUDE,
@@ -146,6 +211,11 @@ class HomeScreen extends Component {
       //   },
       // },
     };
+  }
+
+  onSelectServiceProvider(selectedServiceProvider) {
+    this.setState({onSelectServiceProvider: selectedServiceProvider});
+    console.log(selectedServiceProvider);
   }
   onBack = () => {
     const {clickedPosition} = this.state;
@@ -261,12 +331,118 @@ class HomeScreen extends Component {
   toggleDrawerMenu = () => {
     this.setState({isDrawerOpen: true});
   };
+  selectCarpenter = () => {
+    this.setState({
+      isCarpenter: true,
+      isPlumber: false,
+      isElectrician: false,
+      isAntiPest: false,
+      isMechanics: false,
+      isCleaner: false,
+    });
+    console.log('carpenter', this.state.isCarpenter);
+    console.log('plumber', this.state.isPlumber);
+    console.log('electrician', this.state.isElectrician);
+    console.log('mechanics', this.state.isMechanics);
+    console.log('antipest', this.state.isAntiPest);
+    console.log('cleaner', this.state.isCleaner);
+  };
+  selectPlumber = () => {
+    this.setState({
+      isCarpenter: false,
+      isPlumber: true,
+      isElectrician: false,
+      isAntiPest: false,
+      isMechanics: false,
+      isCleaner: false,
+    });
+    console.log('carpenter', this.state.isCarpenter);
+    console.log('plumber', this.state.isPlumber);
+    console.log('electrician', this.state.isElectrician);
+    console.log('mechanics', this.state.isMechanics);
+    console.log('antipest', this.state.isAntiPest);
+    console.log('cleaner', this.state.isCleaner);
+  };
+  selectElectician = () => {
+    this.setState({
+      isCarpenter: false,
+      isPlumber: false,
+      isElectrician: true,
+      isAntiPest: false,
+      isMechanics: false,
+      isCleaner: false,
+    });
+    console.log('carpenter', this.state.isCarpenter);
+    console.log('plumber', this.state.isPlumber);
+    console.log('electrician', this.state.isElectrician);
+    console.log('mechanics', this.state.isMechanics);
+    console.log('antipest', this.state.isAntiPest);
+    console.log('cleaner', this.state.isCleaner);
+  };
+  selectAntiPest = () => {
+    this.setState({
+      isCarpenter: false,
+      isPlumber: false,
+      isElectrician: false,
+      isAntiPest: true,
+      isMechanics: false,
+      isCleaner: false,
+    });
+    console.log('carpenter', this.state.isCarpenter);
+    console.log('plumber', this.state.isPlumber);
+    console.log('electrician', this.state.isElectrician);
+    console.log('mechanics', this.state.isMechanics);
+    console.log('antipest', this.state.isAntiPest);
+    console.log('cleaner', this.state.isCleaner);
+  };
+  selectMechanics = () => {
+    this.setState({
+      isCarpenter: false,
+      isPlumber: false,
+      isElectrician: false,
+      isAntiPest: false,
+      isMechanics: true,
+      isCleaner: false,
+    });
+    console.log('carpenter', this.state.isCarpenter);
+    console.log('plumber', this.state.isPlumber);
+    console.log('electrician', this.state.isElectrician);
+    console.log('mechanics', this.state.isMechanics);
+    console.log('antipest', this.state.isAntiPest);
+    console.log('cleaner', this.state.isCleaner);
+  };
+  selectCleaner = () => {
+    this.setState({
+      isCarpenter: false,
+      isPlumber: false,
+      isElectrician: false,
+      isAntiPest: false,
+      isMechanics: false,
+      isCleaner: true,
+    });
+    console.log('carpenter', this.state.isCarpenter);
+    console.log('plumber', this.state.isPlumber);
+    console.log('electrician', this.state.isElectrician);
+    console.log('mechanics', this.state.isMechanics);
+    console.log('antipest', this.state.isAntiPest);
+    console.log('cleaner', this.state.isCleaner);
+  };
+
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
     console.log('upload', this.state.uploadImageModal);
   };
+  setModalProbleValue = () => {
+    this.setState({isModalVisible: false});
+    this.setState({isChairSelected: false});
+    this.setState({isTableSelected: false});
+    this.setState({isDoorSelected: false});
+  };
   toggleAbout = () => {
     this.setState({aboutUs: true});
+  };
+  toggleAboutFalse = () => {
+    this.setState({aboutUs: false});
   };
   toggleUploadImageModal = () => {
     this.setState({uploadImageModal: true});
@@ -314,8 +490,8 @@ class HomeScreen extends Component {
     if (option === 'camera') {
       ImagePicker.openCamera({
         cropping: true,
-        width: 500,
-        height: 500,
+        width: 300,
+        height: 400,
         mediaType,
         compressImageMaxWidth: 640,
         compressImageMaxHeight: 480,
@@ -468,50 +644,13 @@ class HomeScreen extends Component {
                 </PopupDialog> */}
 
                 {/* // about modal */}
-
-                <Modal
-                  isVisible={this.state.aboutUs}
-                  onBackButtonPress={() => {
-                    this.setState({aboutUs: false});
-                  }}
-                  coverScreen={true}
-                  transparent={true}
-                  onTouchOutside={() => {
-                    this.setState({aboutUs: false});
-                  }}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      widht: wp('15%'),
-                      height: hp('15%'),
-                      borderRadius: 75,
-                    }}>
-                    <View>
-                      <Text
-                        style={{
-                          fontSize: 25,
-                          paddingLeft: 10,
-                          color: 'black',
-                          fontStyle: 'normal',
-                          alignSelf: 'center',
-                        }}>
-                        About Us
-                      </Text>
-                      <Text
-                        style={{
-                          paddingLeft: 11,
-                          marginTop: hp('2%'),
-
-                          fontSize: 15,
-                        }}>
-                        SKILLCALLS.COM A/127,Sahid Nagar
-                        Bhubneswar,Odisha,India(IN),PinCode:-751007
-                      </Text>
-                    </View>
-                  </View>
-                </Modal>
+                <ModalAboutUs
+                  about={this.state.aboutUs}
+                  setvalue={this.toggleAboutFalse}
+                />
                 {/*
                 // booking modal */}
+                {/* <ModalProblemType visible={this.state.isModalVisible} /> */}
                 <Modal
                   isVisible={
                     this.state.isModalVisible ||
@@ -682,7 +821,7 @@ class HomeScreen extends Component {
                       style={{
                         backgroundColor: '#FFFFFF',
                         widht: wp('35%'),
-                        height: hp('35%'),
+                        height: hp('65%'),
                         borderRadius: 15,
                       }}>
                       <View style={{padding: hp('2%')}}>
@@ -704,7 +843,7 @@ class HomeScreen extends Component {
                           borderRadius: 15,
                           padding: hp('3%'),
                           width: hp('35%'),
-                          height: hp('18%'),
+                          height: hp('48%'),
                           marginLeft: hp('5%'),
                         }}
                         onPress={() => {
@@ -781,7 +920,11 @@ class HomeScreen extends Component {
                             <Icon
                               name="camera-enhance"
                               type="MaterialIcons"
-                              style={{fontSize: 100, color: '#E57373'}}
+                              style={{
+                                fontSize: 150,
+                                color: '#E57373',
+                                marginTop: hp('10%'),
+                              }}
                             />
                           ) : (
                             <Image
@@ -1088,7 +1231,30 @@ class HomeScreen extends Component {
                   showsIndoors={true}
                   //onRegionChange={region => this.setState({region})}
                 >
-                  {this.state.marker.map(marker => {
+                  {this.state.markers.map((marker, index) => {
+                    return (
+                      <Marker
+                        coordinate={{
+                          latitude: marker.coordinates.latitude,
+                          longitude: marker.coordinates.longitude,
+                          //longitude: marker.coordinates.longitude,
+                        }}
+                        title={marker.title}
+                        key={index}
+                      />
+                    );
+                  })}
+                  <Marker
+                    coordinate={{
+                      latitude: this.state.region.latitude,
+                      longitude: this.state.region.longitude,
+                    }}
+                    title={'Trident'}
+                    description={'college'}>
+                    <Text>{`Latitude ${this.state.region.latitude}
+          Longitude ${this.state.region.longitude}`}</Text>
+                  </Marker>
+                  {/* {this.state.marker.map(marker => {
                     return (
                       <Marker
                         coordinate={{
@@ -1101,7 +1267,7 @@ class HomeScreen extends Component {
           Longitude ${this.state.region.longitude}`}</Text>
                       </Marker>
                     );
-                  })}
+                  })} */}
                 </MapView>
               </View>
             </Content>
@@ -1109,7 +1275,15 @@ class HomeScreen extends Component {
               <FooterComponent
                 navigation={this.props.navigation}
                 modal={this.toggleModal}
-                about={this.toggleAbout}
+                carp={this.selectCarpenter}
+                plum={this.selectPlumber}
+                elect={this.selectElectician}
+                anti={this.selectAntiPest}
+                mech={this.selectMechanics}
+                clean={this.selectCleaner}
+                onSelectServiceProvider={selectedServiceProvider => {
+                  this.onSelectServiceProvider(selectedServiceProvider);
+                }}
               />
             </View>
 
@@ -1178,12 +1352,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#e6e6e6',
     width: hp('33%'),
-    height: hp('14%'),
+    height: hp('43%'),
   },
   avatarContainerIcon: {
     //justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:hp("2%")
+    marginBottom: hp('2%'),
   },
 });
 
