@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text,Image } from 'react-native';
 
-import {createAppContainer} from 'react-navigation'
+import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
 import {createStackNavigator} from 'react-navigation-stack';
 
@@ -14,10 +14,12 @@ import Config from "../../config";
 
 
 
-const Profile=createStackNavigator({
+const Profile=createSwitchNavigator({
   Profile:{screen:PROFILE},
-  EditProfile:{screen:EditProfile},
-  Confige:Config.navigation
+  main:Config.navigation,
+ 
+  // EditProfile:{screen:EditProfile},
+  // Confige:Config.navigation
 })
 
 // const classroom=createStackNavigator({
@@ -29,7 +31,7 @@ const TopTabNavigator = createMaterialTopTabNavigator(
   {
     FACILITES: {screen: FACILITES },
     BOOKINGS:{screen:BOOKINGS},
-    PROFILE:{screen:PROFILE},
+    PROFILE:{screen:Profile},
   },
   {
     tabBarOptions: {
