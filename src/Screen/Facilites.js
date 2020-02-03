@@ -26,7 +26,7 @@ import {
 import {TextInput} from 'react-native-paper';
 
 // create a component
-class Tab1 extends Component {
+class FACILITES extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -222,4 +222,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default Tab1;
+export default FACILITES;

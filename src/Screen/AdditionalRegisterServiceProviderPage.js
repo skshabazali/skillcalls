@@ -304,7 +304,7 @@ export default class AdditionalRegisterServiceProviderPage extends Component {
               <ProgressStep
                 label="Third Step"
                 onSubmit={() => {
-                  this.props.navigation.navigate('ServiceProviderHomePage',{navigation:this.props.navigation.state.params.navigation});
+                  this.props.navigation.navigate('ServiceProviderHomePage');
                 }}>
                 <View>
                   <Formik

@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {Button, Container, Content} from 'native-base';
 
 // create a component
-class Tab2 extends Component {
+class BOOKINGS extends Component {
   constructor(props) {
     super(props);
   }
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default Tab2;
+export default BOOKINGS;

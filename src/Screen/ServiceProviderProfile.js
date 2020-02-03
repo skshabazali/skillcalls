@@ -15,7 +15,7 @@ import ToggleSwitch from 'toggle-switch-react-native';
 import image from '../Assets/usericon.png';
 import {Rating, AirbnbRating} from 'react-native-ratings';
 // create a component
-class Tab3 extends Component {
+class PROFILE extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -122,8 +122,7 @@ class Tab3 extends Component {
                         borderRadius: 15,
                         backgroundColor: 'black',
                       }}
-                      onPress={() => {
-                        this.props.navigaiton.navigate('Home');
+                      onPress={() => { this.props.navigation.navigate("LoginService")
                       }}>
                       <Text style={{marginLeft: hp('5%'), color: 'white'}}>
                         LOGOUT
@@ -174,8 +173,7 @@ class Tab3 extends Component {
                     </Button>
                   </View>
                 </View>
-
-      </View>
+                </View>
     );
   }
 }
@@ -184,11 +182,8 @@ class Tab3 extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#2c3e50',
   },
 });
 
 //make this component available to the app
-export default Tab3;
+export default PROFILE;

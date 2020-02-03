@@ -255,7 +255,7 @@ class RegisterServiceProvider extends Component {
                             (props.handleSubmit,
                             () => {
                               this.props.navigation.navigate(
-                                'AdditionalRegisterServiceProviderPage',{navigation:this.props.navigation}
+                                'AdditionalRegisterServiceProviderPage'
                               );
                             })
                           }>

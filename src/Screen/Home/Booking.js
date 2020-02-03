@@ -24,14 +24,15 @@ import {
 import {Menu, Provider, Divider, Button} from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import Modal from 'react-native-modal';
-import Tab1 from '../Tab1';
-import Tab2 from '../Tab2';
-import Tab3 from '../Tab3';
+import Tab1 from '../Facilites';
+import Tab2 from '../ServiceProviderBooking';
+import Tab3 from '../ServiceProviderProfile';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import SlideShow from '../../component/SlideShow';
+import TopNavigator from '../../component/TopNavigator';
 
 // create a component
 class Booking extends Component {
@@ -64,9 +65,9 @@ class Booking extends Component {
 
   render() {
     return (
-     <View style={styles.container}>
-       <Text>Booking</Text>
-     </View>
+    <View style={styles.container}>
+      <Text>Bookings</Text>
+    </View>
     );
   }
 }
