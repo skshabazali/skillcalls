@@ -9,7 +9,7 @@ import {
   ScrollView,
   ToastAndroid,
 } from 'react-native';
-import {Footer, FooterTab, Button, Icon, Thumbnail} from 'native-base';
+import {Footer, FooterTab, Button, Icon, Thumbnail, List, ListItem, Container, Content} from 'native-base';
 import carpenterImage from '../Assets/carpenterbw.png';
 import plumberImage from '../Assets/plumbercol.png';
 import electricianImage from '../Assets/electrician.png';
@@ -21,6 +21,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import FooterItems from './FooterItems';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 type Props = {};
 // create a component
 class FooterComponent extends Component<Props> {
@@ -33,6 +35,7 @@ class FooterComponent extends Component<Props> {
       antipest: false,
       mechanic: false,
       cleaner: false,
+   
     };
   }
   shootToast = message => {
@@ -45,9 +48,40 @@ class FooterComponent extends Component<Props> {
     );
   };
   render() {
+    var items=[
+      {image:carpenterImage,text:"Carpenter"},
+      {image:plumberImage,text:"Plumber"},
+      {image:electricianImage,text:"Electrician"},
+      {image:antipestImage,text:"Anti Pest"},
+      {image:mechanicImage,text:"Mechanics"},
+      {image:cleanerImage,text:"Cleaner"},
+      {image:carpenterImage,text:"Carpenter"},
+    ]
     return (
-      <View>
-        <View>
+    
+      <View style={{height:hp("23%")}}>
+
+         
+        <List 
+        dataArray={items}
+        horizontal={true}
+
+        showsHorizontalScrollIndicator={false}
+        renderRow ={(item)=>(
+          <TouchableOpacity noBorder >
+       <FooterItems item={item}/>
+       
+            {/* <FooterItems item={item} /> */}
+            </TouchableOpacity>
+        
+
+        )}
+        
+        />
+         
+         
+
+        {/* <View>
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -303,7 +337,12 @@ class FooterComponent extends Component<Props> {
               </View>
             </FooterTab>
           </ScrollView>
-        </View>
+        </View> */}
+
+
+
+
+
         <View style={{padding: 10}}>
           <Button
             onPress={() => {
@@ -324,7 +363,8 @@ class FooterComponent extends Component<Props> {
             </Text>
           </Button>
         </View>
-      </View>
+        </View>
+       
     );
   }
 }

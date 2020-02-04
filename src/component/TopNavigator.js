@@ -16,7 +16,7 @@ import Config from "../../config";
 
 const Profile=createSwitchNavigator({
   Profile:{screen:PROFILE},
-  main:Config.navigation,
+ //main:Config.navigation,
  
   // EditProfile:{screen:EditProfile},
   // Confige:Config.navigation

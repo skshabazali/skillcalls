@@ -17,7 +17,7 @@ import {
 export default class FooterItems extends Component {
   render() {
     return (
-      <ScrollView
+      <View
         key={this.props.key}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -52,8 +52,7 @@ export default class FooterItems extends Component {
             </Button>
           </View>
         </FooterTab>
-        );
-      </ScrollView>
+      </View>
     );
   }
 }

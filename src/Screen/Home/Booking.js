@@ -33,6 +33,7 @@ import {
 } from 'react-native-responsive-screen';
 import SlideShow from '../../component/SlideShow';
 import TopNavigator from '../../component/TopNavigator';
+import FooterComponent from '../../component/FooterComponet';
 
 // create a component
 class Booking extends Component {
@@ -65,10 +66,11 @@ class Booking extends Component {
 
   render() {
     return (
-    <View style={styles.container}>
-      <Text>Bookings</Text>
+    <View style={styles.containers}>
+      <Text>Booking</Text>
     </View>
-    );
+    
+    )
   }
 }
 
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2c3e50',
+    
   },
   avatar: {
     borderRadius: 10,
