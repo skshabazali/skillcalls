@@ -14,6 +14,7 @@ import {createStackNavigator} from 'react-navigation-stack'
 import FACILITES from './src/Screen/Facilites';
 import BOOKINGS from './src/Screen/ServiceProviderBooking';
 import PROFILE from './src/Screen/ServiceProviderProfile';
+import Settings from './src/Screen/Settings';
 
 const Config = {
   navigation: createStackNavigator({
@@ -69,6 +70,9 @@ const Config = {
     },
     Carpenters: {
       screen: carpenter,
+    },
+    Setting: {
+      screen: Settings,
     },
     RegisterService: {
       screen: RegisterServiceProvider,

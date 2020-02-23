@@ -40,6 +40,12 @@ import Sidebar from '../Home/Sidebar';
 import Modal, {ModalTitle} from 'react-native-modal';
 import FooterComponent from '../../component/FooterComponet';
 import ModalAboutUs from '../../component/ModalAboutUs';
+import carpenterImage from '../../Assets/carpenterbw.png';
+import plumberImage from '../../Assets/plumbercol.png';
+import electricianImage from '../../Assets/electrician.png';
+import antipestImage from '../../Assets/pestcol.png';
+import mechanicImage from '../../Assets/mechcol.png';
+import cleanerImage from '../../Assets/cleanercol.png';
 
 async function requestLocationPermission() {
   try {
@@ -117,36 +123,42 @@ class HomeScreen extends Component {
       imageModalVisible: false,
       selectedOption: '',
       image: [],
+      isactive:false,
       uploadUrl: '',
       onSelectServiceProvider: '',
+      onFabPress:false,
       markers: [
         {
-          title: 'carpenter',
+          title: 'Carpenter',
           coordinates: {
             latitude: 20.334671,
             longitude: 85.802578,
           },
+          image:carpenterImage,
         },
         {
-          title: 'carpenter',
+          title: 'Carpenter',
           coordinates: {
             latitude: 20.334672,
             longitude: 85.822474,
           },
+          image:carpenterImage,
         },
         {
-          title: 'carpenter',
+          title: 'Carpenter',
           coordinates: {
             latitude: 20.334673,
             longitude: 85.8271,
           },
+          image:carpenterImage,
         },
         {
-          title: 'carpenter',
+          title: 'Carpenter',
           coordinates: {
             latitude: 20.334671,
             longitude: 85.802774,
           },
+          image:carpenterImage,
         },
         {
           title: 'Plumber',
@@ -154,6 +166,31 @@ class HomeScreen extends Component {
             latitude: 20.339771,
             longitude: 85.855449,
           },
+          image:plumberImage,
+        },
+        {
+          title: 'Plumber',
+          coordinates: {
+            latitude: 20.349771,
+            longitude: 85.855449,
+          },
+          image:plumberImage,
+        },
+        {
+          title: 'Plumber',
+          coordinates: {
+            latitude: 20.339756,
+            longitude: 85.855449,
+          },
+          image:plumberImage,
+        },
+        {
+          title: 'Plumber',
+          coordinates: {
+            latitude: 20.339754,
+            longitude: 85.855449,
+          },
+          image:plumberImage,
         },
         {
           title: 'Electrician',
@@ -161,6 +198,7 @@ class HomeScreen extends Component {
             latitude: 20.339771,
             longitude: 85.655449,
           },
+          image:electricianImage,
         },
         {
           title: 'Mechanics',
@@ -168,20 +206,23 @@ class HomeScreen extends Component {
             latitude: 20.339771,
             longitude: 85.155449,
           },
+          image:mechanicImage,
         },
         {
-          title: 'hello',
+          title: 'Cleaner',
           coordinates: {
-            latitude: 23.149771,
+            latitude: 20.349771,
             longitude: 85.155449,
           },
+          image:cleanerImage
         },
         {
-          title: 'hello',
+          title: 'Anti Pest',
           coordinates: {
-            latitude: 23.149771,
+            latitude: 20.349751,
             longitude: 84.655449,
           },
+          image : antipestImage,
         },
       ],
       region: {
@@ -215,6 +256,7 @@ class HomeScreen extends Component {
 
   onSelectServiceProvider(selectedServiceProvider) {
     this.setState({onSelectServiceProvider: selectedServiceProvider});
+    this.setState({isactive:true});
     console.log(selectedServiceProvider);
   }
   onBack = () => {
@@ -619,7 +661,9 @@ class HomeScreen extends Component {
                   backgroundColor: 'white',
                 }}
                 direction="Left"
-                position="bottomRight">
+                position="bottomRight"
+                onPress={()=>{this.setState({onFabPress:true})}}
+                >
                 <Icon
                   style={{color: 'blue'}}
                   name="my-location"
@@ -1231,19 +1275,84 @@ class HomeScreen extends Component {
                   showsIndoors={true}
                   //onRegionChange={region => this.setState({region})}
                 >
-                  {this.state.markers.map((marker, index) => {
-                    return (
-                      <Marker
-                        coordinate={{
-                          latitude: marker.coordinates.latitude,
-                          longitude: marker.coordinates.longitude,
-                          //longitude: marker.coordinates.longitude,
-                        }}
-                        title={marker.title}
-                        key={index}
-                      />
-                    );
-                  })}
+      
+      {this.state.markers.map((marker, index) => {
+        //console.log("title",marker.title);
+        if (this.state.onSelectServiceProvider===''){
+          return(
+                          <Marker
+                            coordinate={{
+                              latitude: marker.coordinates.latitude,
+                              longitude: marker.coordinates.longitude,
+                              
+                              //longitude: marker.coordinates.longitude,
+                            }}
+                            title={marker.title}
+                            key={index}
+                          >
+                            
+                            <Image source={marker.image}  style={{height:hp("5%"),width:hp("5%"),borderWidth:1,borderRadius:75,borderColor:"black"}}/>
+                            </Marker>
+                         
+                      );
+
+        }
+        else if(this.state.onSelectServiceProvider===marker.title){
+          console.log("title",marker.title);
+          return(
+            <Marker
+              coordinate={{
+                latitude: marker.coordinates.latitude,
+                longitude: marker.coordinates.longitude,
+                
+                //longitude: marker.coordinates.longitude,
+              }}
+              title={marker.title}
+              key={index}
+            >
+              
+              <Image source={marker.image}  style={{height:hp("5%"),width:hp("5%"),borderWidth:1,borderRadius:75,borderColor:"black"}}/>
+              </Marker>
+           
+        );
+
+        }
+        // else {
+        //             return(
+        //               <Marker
+        //                 coordinate={{
+        //                   latitude: marker.coordinates.latitude,
+        //                   longitude: marker.coordinates.longitude,
+                          
+        //                   //longitude: marker.coordinates.longitude,
+        //                 }}
+        //                 title={marker.title}
+        //                 key={index}
+        //               >
+                        
+        //                 <Image source={marker.image}  style={{height:hp("5%"),width:hp("5%"),borderWidth:1,borderRadius:75,borderColor:"black"}}/>
+        //                 </Marker>
+                     
+        //           );
+                 
+        //         }
+              })}
+                  
+                    
+              
+                 
+                  
+                  {this.state.onFabPress?( <Marker
+                    coordinate={{
+                      latitude: this.state.region.latitude,
+                      longitude: this.state.region.longitude,
+                    }}
+                    title={'Trident'}
+                    description={'college'}>
+                    <Text>{`Latitude ${this.state.region.latitude}
+          Longitude ${this.state.region.longitude}`}</Text>
+                  </Marker>):null}
+                 
                   <Marker
                     coordinate={{
                       latitude: this.state.region.latitude,
@@ -1275,12 +1384,7 @@ class HomeScreen extends Component {
               <FooterComponent
                 navigation={this.props.navigation}
                 modal={this.toggleModal}
-                carp={this.selectCarpenter}
-                plum={this.selectPlumber}
-                elect={this.selectElectician}
-                anti={this.selectAntiPest}
-                mech={this.selectMechanics}
-                clean={this.selectCleaner}
+                active={this.state.onSelectServiceProvider}
                 onSelectServiceProvider={selectedServiceProvider => {
                   this.onSelectServiceProvider(selectedServiceProvider);
                 }}

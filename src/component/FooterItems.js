@@ -13,12 +13,24 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { ThemeProvider } from 'react-native-paper';
 
 export default class FooterItems extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      carpenter: false,
+      plumber: false,
+      electrician: false,
+      antipest: false,
+      mechanic: false,
+      cleaner: false,
+   
+    };
+  }
   render() {
     return (
       <View
-        key={this.props.key}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         style={{height: hp('15%')}}>
@@ -28,7 +40,7 @@ export default class FooterItems extends Component {
               borderRadius: 5,
               borderWidth: 3,
               borderColor: '#000000',
-              backgroundColor: 'yellow',
+              backgroundColor:this.props.active===this.props.item.text? 'yellow':"white",
               width: hp('10%'),
               borderStyle: 'solid',
             }}>
@@ -36,7 +48,7 @@ export default class FooterItems extends Component {
               vertical
               transparent
               onPress={() => {
-                // this.props.onSelectServiceProvider('Carpenter');
+                this.props.onSelectServiceProvider(this.props.item.text);
                 // {
                 //   this.state.carpenter
                 //     ? this.props.carp()

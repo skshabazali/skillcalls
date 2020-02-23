@@ -7,9 +7,16 @@ import Bookings from "./src/Screen/Home/Booking";
 // const Main=createStackNavigator({
 //     Confige:Config.navigation,
 // })
+const Main=createStackNavigator({
+    Top:TopNavigator,
+    Configs:Config.navigation,
+})
 const SwitchNavigation = createSwitchNavigator({
     Configs:Config.navigation,
+    main:Main,
+   
+    
     
 })
-const AppNavigator =  createAppContainer(Config.navigation);
+const AppNavigator =  createAppContainer(SwitchNavigation);
 export default AppNavigator;

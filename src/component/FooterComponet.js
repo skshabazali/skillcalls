@@ -49,13 +49,13 @@ class FooterComponent extends Component<Props> {
   };
   render() {
     var items=[
-      {image:carpenterImage,text:"Carpenter"},
-      {image:plumberImage,text:"Plumber"},
-      {image:electricianImage,text:"Electrician"},
-      {image:antipestImage,text:"Anti Pest"},
-      {image:mechanicImage,text:"Mechanics"},
-      {image:cleanerImage,text:"Cleaner"},
-      {image:carpenterImage,text:"Carpenter"},
+      {image:carpenterImage,text:"Carpenter",id:1},
+      {image:plumberImage,text:"Plumber",id:2},
+      {image:electricianImage,text:"Electrician",id:3},
+      {image:antipestImage,text:"Anti Pest",id:4},
+      {image:mechanicImage,text:"Mechanics",id:5},
+      {image:cleanerImage,text:"Cleaner",id:6},
+      {image:carpenterImage,text:"Carpenter",id:7},
     ]
     return (
     
@@ -68,11 +68,11 @@ class FooterComponent extends Component<Props> {
 
         showsHorizontalScrollIndicator={false}
         renderRow ={(item)=>(
-          <TouchableOpacity noBorder >
-       <FooterItems item={item}/>
+          <View >
+       <FooterItems item={item} navigation={this.props.navigation} active={this.props.active} onSelectServiceProvider={(SelectServiceProvider)=>{this.props.onSelectServiceProvider(SelectServiceProvider)}}  />
        
             {/* <FooterItems item={item} /> */}
-            </TouchableOpacity>
+            </View>
         
 
         )}
@@ -347,14 +347,14 @@ class FooterComponent extends Component<Props> {
           <Button
             onPress={() => {
               {
-                this.state.carpenter ||
-                this.state.plumber ||
-                this.state.electrician ||
-                this.state.antipest ||
-                this.state.mechanic ||
-                this.state.cleaner
-                  ? this.props.modal()
-                  : this.shootToast('Select any one to book');
+                // this.state.carpenter ||
+                // this.state.plumber ||
+                // this.state.electrician ||
+                // this.state.antipest ||
+                // this.state.mechanic ||
+                // this.state.cleaner
+                   this.props.modal()
+                  // : this.shootToast('Select any one to book');
               }
             }}
             style={{backgroundColor: '#000'}}>

@@ -112,12 +112,12 @@ class LoginServiceProvider extends Component {
           <View
             style={{
               flex: 1,
-              justifyContent: 'center',
-              width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height / 2.5,
-              marginLeft: hp('15%'),
+              height:hp("35%"),
+              backgroundColor:"grey"
             }}>
-            <Animated.Image
+              <Image style={{height:hp('15%'),width:hp("15%"),marginLeft:hp("20%"),marginTop:hp("6%"),borderRadius:70,borderColor:"black",borderWidth:1}} source={backgroundImage} />
+              <Text style={{fontSize:20,marginLeft:hp("22%"),color:"white"}} >SkillCalls</Text>
+            {/* <Animated.Image
               onLoad={this.onLaunchAnimation}
               {...this.props}
               style={[
@@ -142,7 +142,7 @@ class LoginServiceProvider extends Component {
               ]}
               resizeMode={'contain'}
               source={backgroundImage}
-            />
+            /> */}
           </View>
 
           <View
@@ -151,6 +151,7 @@ class LoginServiceProvider extends Component {
               justifyContent: 'center',
               backgroundColor: 'white',
               marginBottom: hp('20%'),
+              marginTop:hp("4%"),
             }}>
             <View style={{position: 'absolute', top: '27%', left: '5%'}}>
               <Icon

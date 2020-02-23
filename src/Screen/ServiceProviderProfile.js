@@ -122,8 +122,8 @@ class PROFILE extends Component {
                         borderRadius: 15,
                         backgroundColor: 'black',
                       }}
-                      onPress={() => { this.props.navigation.navigate("LoginService")
-                      }}>
+                      onPress={() => {this.props.navigation.navigate("LoginService"),this.shootToast('Booking Accepted');}}
+                      >
                       <Text style={{marginLeft: hp('5%'), color: 'white'}}>
                         LOGOUT
                       </Text>
