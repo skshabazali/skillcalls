@@ -193,7 +193,7 @@ class LoginServiceProvider extends Component {
             />
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('ServiceProviderHomePage');
               }}>
               <View
                 style={{

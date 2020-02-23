@@ -14,9 +14,9 @@ import Config from "../../config";
 
 
 
-const Profile=createStackNavigator({
+const Profile=createSwitchNavigator({
   Profile:{screen:PROFILE},
-  //Config:Config.navigation,
+  Config:Config.navigation,
  //main:Config.navigation,
  
   // EditProfile:{screen:EditProfile},
